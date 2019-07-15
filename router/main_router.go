@@ -11,6 +11,7 @@ package router
 import (
 	"github.com/oktopriima/privy-id/app/config"
 	"github.com/oktopriima/privy-id/httphandler/auth"
+	"github.com/oktopriima/privy-id/httphandler/product"
 	"github.com/oktopriima/privy-id/httphandler/role"
 	"github.com/oktopriima/privy-id/httphandler/roleuser"
 	"github.com/oktopriima/privy-id/httphandler/user"
@@ -24,6 +25,7 @@ func InvokeRoute(
 	user user.Handler,
 	role role.Handler,
 	roleuser roleuser.Handler,
+	product product.Handler,
 ) {
 
 	engine.NoRoute()
@@ -63,6 +65,16 @@ func InvokeRoute(
 		roleuserroute.Use(middleware.MyAuth(config.ADMIN))
 		roleuserroute.POST("", roleuser.CreateHandler)
 		roleuserroute.DELETE(":id", roleuser.DeleteHandler)
+	}
+
+	/** product route group */
+	{
+		productroute := markone.Group("product")
+		productroute.POST("", product.CreateHandler)
+		productroute.GET(":id", product.FindHandler)
+		productroute.GET("", product.FindAllHandler)
+		productroute.PUT(":id", product.UpdateHandler)
+		productroute.DELETE(":id", product.DeleteHandler)
 	}
 
 }

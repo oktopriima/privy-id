@@ -11,6 +11,7 @@ package container
 import (
 	"github.com/oktopriima/privy-id/httphandler/auth"
 	"github.com/oktopriima/privy-id/httphandler/extra"
+	"github.com/oktopriima/privy-id/httphandler/product"
 	"github.com/oktopriima/privy-id/httphandler/role"
 	"github.com/oktopriima/privy-id/httphandler/roleuser"
 	"github.com/oktopriima/privy-id/httphandler/user"
@@ -37,6 +38,10 @@ func BuildHttpHandlerProvider(container *dig.Container) *dig.Container {
 	}
 
 	if err = container.Provide(roleuser.NewHandler); err != nil {
+		panic(err)
+	}
+
+	if err = container.Provide(product.NewHandler); err != nil {
 		panic(err)
 	}
 

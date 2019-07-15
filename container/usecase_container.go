@@ -10,6 +10,7 @@ package container
 
 import (
 	"github.com/oktopriima/privy-id/app/context/auth"
+	"github.com/oktopriima/privy-id/app/context/product"
 	"github.com/oktopriima/privy-id/app/context/role"
 	"github.com/oktopriima/privy-id/app/context/roleuser"
 	"github.com/oktopriima/privy-id/app/context/user"
@@ -33,6 +34,10 @@ func BuildUsecaseProvider(container *dig.Container) *dig.Container {
 	}
 
 	if err = container.Provide(roleuser.NewUsecase); err != nil {
+		panic(err)
+	}
+
+	if err = container.Provide(product.NewUsecase); err != nil {
 		panic(err)
 	}
 	return container
