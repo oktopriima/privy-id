@@ -11,6 +11,7 @@ package router
 import (
 	"github.com/oktopriima/privy-id/app/config"
 	"github.com/oktopriima/privy-id/httphandler/auth"
+	"github.com/oktopriima/privy-id/httphandler/category"
 	"github.com/oktopriima/privy-id/httphandler/product"
 	"github.com/oktopriima/privy-id/httphandler/role"
 	"github.com/oktopriima/privy-id/httphandler/roleuser"
@@ -26,6 +27,7 @@ func InvokeRoute(
 	role role.Handler,
 	roleuser roleuser.Handler,
 	product product.Handler,
+	category category.Handler,
 ) {
 
 	engine.NoRoute()
@@ -77,4 +79,13 @@ func InvokeRoute(
 		productroute.DELETE(":id", product.DeleteHandler)
 	}
 
+	/** category route group */
+	{
+		categoryroute := markone.Group("category")
+		categoryroute.POST("", category.CreateHandler)
+		categoryroute.PUT(":id", category.UpdateHandler)
+		categoryroute.GET(":id", category.FindHandler)
+		categoryroute.GET("", category.FindAllHandler)
+		categoryroute.DELETE(":id", category.DeleteHandler)
+	}
 }

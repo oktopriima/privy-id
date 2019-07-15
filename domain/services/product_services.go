@@ -74,7 +74,7 @@ func (srv *productServices) Update(product *model.Product, tx *gorm.DB) (err err
 	return
 }
 
-func (srv *productServices) Delete(user *model.Product, tx *gorm.DB) (err error) {
-	err = tx.Delete(&user).Error
+func (srv *productServices) Delete(product *model.Product, tx *gorm.DB) (err error) {
+	err = tx.Delete(&product).Error
 	return
 }

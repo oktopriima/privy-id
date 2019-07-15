@@ -36,5 +36,9 @@ func BuildRepositoryProvider(container *dig.Container) *dig.Container {
 		panic(err)
 	}
 
+	if err = container.Provide(services.NewCategoryServices); err != nil {
+		panic(err)
+	}
+
 	return container
 }
