@@ -9,15 +9,16 @@
 package router
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/oktopriima/privy-id/app/config"
 	"github.com/oktopriima/privy-id/httphandler/auth"
 	"github.com/oktopriima/privy-id/httphandler/category"
 	"github.com/oktopriima/privy-id/httphandler/product"
+	"github.com/oktopriima/privy-id/httphandler/productcategory"
 	"github.com/oktopriima/privy-id/httphandler/role"
 	"github.com/oktopriima/privy-id/httphandler/roleuser"
 	"github.com/oktopriima/privy-id/httphandler/user"
 	"github.com/oktopriima/privy-id/libraries/middleware"
-	"github.com/gin-gonic/gin"
 )
 
 func InvokeRoute(
@@ -28,6 +29,7 @@ func InvokeRoute(
 	roleuser roleuser.Handler,
 	product product.Handler,
 	category category.Handler,
+	productcategory productcategory.Handler,
 ) {
 
 	engine.NoRoute()
@@ -87,5 +89,14 @@ func InvokeRoute(
 		categoryroute.GET(":id", category.FindHandler)
 		categoryroute.GET("", category.FindAllHandler)
 		categoryroute.DELETE(":id", category.DeleteHandler)
+	}
+
+	/** product category */
+	{
+		productcategoryroute := markone.Group("product-category")
+		productcategoryroute.POST("", productcategory.CreateHandler)
+		productcategoryroute.PUT(":id", productcategory.UpdateHandler)
+		productcategoryroute.GET(":product_id", productcategory.FindHandler)
+		productcategoryroute.DELETE(":id", productcategory.DeleteHandler)
 	}
 }

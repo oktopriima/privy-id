@@ -12,6 +12,7 @@ import (
 	"github.com/oktopriima/privy-id/app/context/auth"
 	"github.com/oktopriima/privy-id/app/context/category"
 	"github.com/oktopriima/privy-id/app/context/product"
+	"github.com/oktopriima/privy-id/app/context/productcategory"
 	"github.com/oktopriima/privy-id/app/context/role"
 	"github.com/oktopriima/privy-id/app/context/roleuser"
 	"github.com/oktopriima/privy-id/app/context/user"
@@ -45,5 +46,10 @@ func BuildUsecaseProvider(container *dig.Container) *dig.Container {
 	if err = container.Provide(category.NewUsecase); err != nil {
 		panic(err)
 	}
+
+	if err = container.Provide(productcategory.NewUsecase); err != nil {
+		panic(err)
+	}
+
 	return container
 }
